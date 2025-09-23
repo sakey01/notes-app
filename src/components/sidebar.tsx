@@ -1,4 +1,3 @@
-
 import { IoCreateOutline } from "react-icons/io5";
 
 type NoteProp = {
@@ -8,6 +7,7 @@ type NoteProp = {
 
 type NotesProp = {
   notes: NoteProp[];
+  setNotes: React.Dispatch<React.SetStateAction<NoteProp[]>>;
 };
 
 const Card = ({ title }: NoteProp) => {
@@ -16,7 +16,7 @@ const Card = ({ title }: NoteProp) => {
   const handleDelete = () => {};
 
   return (
-    <div className="flex flex-col w-full min-h-10 p-4 gap-2 cursor-pointer hover:bg-neutral-800">
+    <div className="flex flex-col w-full min-h-20 p-4 gap-2 cursor-pointer hover:bg-neutral-800">
       <div className="flex justify-between w-full">
         <h1 className="font-semibold text-lg">{title}</h1>
         <button className="text-red-500 text-sm" onClick={handleDelete}>
@@ -30,17 +30,21 @@ const Card = ({ title }: NoteProp) => {
   );
 };
 
-const Sidebar = ({ notes }: NotesProp) => {
+const Sidebar = ({ notes, setNotes }: NotesProp) => {
   return (
     <aside className="flex flex-col flex-1 bg-neutral-900 text-white h-screen max-w-max items-center gap-2 border-r-1 border-neutral-500 ">
       <div className="flex justify-between p-4 gap-32">
         <h1 className="font-semibold">Notes</h1>
-        <button>
+        <button
+          onClick={() => {
+            setNotes((prevNotes) => [...prevNotes, { title: "title", content: "blah blah blah..." }]);
+          }}
+        >
           <IoCreateOutline size={20} />
         </button>
       </div>
 
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full overflow-y-auto">
         {notes.map((note, i) => (
           <Card key={i} title={note.title} content={note.content} />
         ))}

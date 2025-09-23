@@ -1,6 +1,6 @@
 import Sidebar from "./components/sidebar";
 import Page from "./components/page";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type Note = {
   title: string;
@@ -9,10 +9,6 @@ type Note = {
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([]);
-
-  useEffect(() => {
-    setNotes((prevNotes) => [...prevNotes, { title: "klfjael", content: "klfjae" }]);
-  }, []);
 
   return (
     <div className="flex max-w-screen">
