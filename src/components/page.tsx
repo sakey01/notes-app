@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 type Note = {
   id: number;
   title: string;
@@ -14,13 +12,7 @@ type Notes = {
 };
 
 const Page = ({ notes, setNotes, active }: Notes) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const currNote = notes.find((n) => n.id === active);
-
-  const focusInput = () => {
-    inputRef.current?.focus();
-  };
 
   return (
     <div className="min-w-1/2 w-full bg-neutral-900 text-white min-h-screen flex items-start justify-center">
@@ -39,17 +31,17 @@ const Page = ({ notes, setNotes, active }: Notes) => {
               placeholder="Untitled Note"
               onChange={(e) => {
                 if (!currNote) return;
-                if (currNote.title.length > 80) return;
 
-                focusInput();
-
-                setNotes((prev) =>
-                  prev.map((note) =>
-                    note.id === currNote.id ? { ...note, title: e.target.value } : note
-                  )
-                );
+                // Update tilte value + 80 char limit
+                const newTitle = e.target.value;
+                if (newTitle.length <= 80) {
+                  setNotes((prev) =>
+                    prev.map((note) =>
+                      note.id === currNote.id ? { ...note, title: newTitle } : note
+                    )
+                  );
+                }
               }}
-              ref={inputRef}
               autoFocus={true}
             />
 
@@ -58,7 +50,6 @@ const Page = ({ notes, setNotes, active }: Notes) => {
               className="bg-transparent min-h-[200px] max-h-screen p-2 sm:p-4 outline-none"
               value={currNote?.content ?? ""}
               placeholder="Type your notes here..."
-              
               onChange={(e) => {
                 if (!currNote) return;
                 setNotes((prev) =>

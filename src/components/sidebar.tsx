@@ -57,7 +57,6 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
             content={note.content}
             date={note.date}
             active={active}
-            notes={notes}
             setNotes={setNotes}
             setActive={setActive}
             onClick={() => {
