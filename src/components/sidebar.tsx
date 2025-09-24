@@ -1,18 +1,20 @@
 import { IoCreateOutline } from "react-icons/io5";
 
-type NoteProp = {
+type Note = {
+  id: number;
   title: string;
   content: string;
+  date: string;
 };
 
-type NotesProp = {
-  notes: NoteProp[];
-  setNotes: React.Dispatch<React.SetStateAction<NoteProp[]>>;
+type Notes = {
+  notes: Note[];
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
 };
 
-const Card = ({ title }: NoteProp) => {
-  const date = new Date();
+const newDate = new Date();
 
+const Card = ({ title, date }: Note) => {
   const handleDelete = () => {};
 
   return (
@@ -24,20 +26,25 @@ const Card = ({ title }: NoteProp) => {
         </button>
       </div>
       <span className="flex justify-start gap-2 text-neutral-300 text-sm">
-        Last Modified: <time>{date.toLocaleDateString()}</time>
+        Last Modified: <time>{date || newDate.toLocaleDateString()}</time>
       </span>
     </div>
   );
 };
 
-const Sidebar = ({ notes, setNotes }: NotesProp) => {
+const Sidebar = ({ notes, setNotes }: Notes) => {
   return (
     <aside className="flex flex-col flex-1 bg-neutral-900 text-white h-screen max-w-max items-center gap-2 border-r-1 border-neutral-500 ">
       <div className="flex justify-between p-4 gap-32">
         <h1 className="font-semibold">Notes</h1>
+
+        {/* Add Notes */}
         <button
           onClick={() => {
-            setNotes((prevNotes) => [...prevNotes, { title: "title", content: "blah blah blah..." }]);
+            setNotes((prevNotes) => [
+              ...prevNotes,
+              { title: "title", content: "blah blah blah...", date: newDate.toLocaleDateString() },
+            ]);
           }}
         >
           <IoCreateOutline size={20} />
@@ -45,8 +52,14 @@ const Sidebar = ({ notes, setNotes }: NotesProp) => {
       </div>
 
       <div className="flex flex-col w-full overflow-y-auto">
-        {notes.map((note, i) => (
-          <Card key={i} title={note.title} content={note.content} />
+        {notes.map((note) => (
+          <Card
+            key={note.id}
+            id={note.id}
+            title={note.title}
+            date={note.date}
+            setNotes={setNotes}
+          />
         ))}
       </div>
     </aside>

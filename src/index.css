@@ -8,7 +8,7 @@ button {
   cursor: pointer;
 }
 
-input {
+input, textarea {
     outline: none;
 }
 

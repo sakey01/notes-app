@@ -1,17 +1,19 @@
 import { useState } from "react";
 
-type NoteProp = {
+type Note = {
+  id: number;
   title: string;
   content: string;
+  date: string;
 };
 
-type PageProps = {
-  notes: NoteProp[];
-};
+type Notes = {
+  notes: Note[];
+}
 
-const Page = ({ notes }: PageProps) => {
-  const [curTitle, setCurTitle] = useState<string>("");
-  const [curContent, setCurContent] = useState<string>("");
+const Page = ({notes}: Notes) => {
+  const [currTitle, setCurrTitle] = useState<string>("");
+  const [currContent, setCurrContent] = useState<string>("");
 
   return (
     <div className=" w-full bg-neutral-900 text-white">
@@ -20,26 +22,27 @@ const Page = ({ notes }: PageProps) => {
           Nothing yet!
         </div>
       ) : (
-        <div className="flex flex-col p-4">
+        <div className="flex flex-col p-4 sm:mr-16 ">
           {/* Writing notes area */}
           <div className="flex flex-col gap-4">
             {/* Notes title input */}
             <input
               className="border border-neutral-500 p-2 text-lg focus:border-neutral-200 shadow"
-              value={curTitle}
-              placeholder="Title"
+              value={currTitle}
+              placeholder="Untitled Note"
               onChange={(e) => {
-                setCurTitle(e.target.value);
+                setCurrTitle(e.target.value);
               }}
             />
             {/* Notes content input */}
             <textarea
-              className="border border-neutral-500 min-h-20 max-h-100 overflow-x-hidden p-2  focus:border-neutral-200 shadow"
-              value={curContent}
+              className="border border-neutral-500 min-h-20 max-h-100 overflow-x-hidden p-2 focus:border-neutral-200 shadow"
+              value={currContent}
               placeholder="Type your notes here..."
               onChange={(e) => {
-                setCurContent(e.target.value);
+                setCurrContent(e.target.value);
               }}
+              onBlur={() => {}}
             />
           </div>
         </div>
