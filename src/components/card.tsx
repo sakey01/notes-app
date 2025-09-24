@@ -1,3 +1,10 @@
+type Note = {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+};
+
 type CardProp = {
   id: number;
   title: string;
@@ -5,11 +12,14 @@ type CardProp = {
   date: string;
   onClick: React.MouseEventHandler<HTMLDivElement>;
   active: number | null;
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
 };
 
-const Card = ({ id, title, date, onClick, active }: CardProp) => {
-  const handleDelete = () => {};
-  console.log("ac", active, "id", id);
+const Card = ({ id, title, date, onClick, active, setNotes }: CardProp) => {
+  const handleDelete = () => {
+    setNotes((prev) => prev.filter((note) => note.id !== id));
+  };
+
   return (
     <div
       onClick={onClick}

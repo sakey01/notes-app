@@ -27,8 +27,8 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
             const id = Date.now();
             const newNote = {
               id: id,
-              title: "New Note",
-              content: "Lorem ipsum...",
+              title: "Untitled",
+              content: "",
               date: new Date().toLocaleDateString(),
             };
 
@@ -54,6 +54,7 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
             content={note.content}
             date={note.date}
             active={active}
+            setNotes={setNotes}
             onClick={() => {
               setActive(note.id);
             }}
