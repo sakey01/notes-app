@@ -3,15 +3,19 @@ type Note = {
   title: string;
   content: string;
   date: string;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
 };
 
 const newDate = new Date();
 
-const Card = ({ title, date }: Note) => {
+const Card = ({ title, date, onClick }: Note) => {
   const handleDelete = () => {};
 
   return (
-    <div className="flex flex-col w-full min-h-20 p-4 gap-2 cursor-pointer hover:bg-neutral-800">
+    <div
+      onClick={onClick}
+      className="flex flex-col w-full min-h-20 p-4 gap-2 cursor-pointer hover:bg-neutral-700"
+    >
       <div className="flex justify-between w-full">
         <h1 className="font-semibold text-lg">{title || "Untitled"}</h1>
         <button className="text-red-500 text-sm" onClick={handleDelete}>

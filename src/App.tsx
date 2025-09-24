@@ -12,11 +12,11 @@ type Note = {
 function App() {
   // Notes object array with title, content and date
   const [notes, setNotes] = useState<Note[]>([]);
-  const [active, setActive] = useState<number | null>(null);
+  const [active, setActive] = useState<number>(0);
 
   return (
     <div className="flex max-w-screen">
-      <Sidebar notes={notes} setNotes={setNotes} active={active}/>
+      <Sidebar notes={notes} setNotes={setNotes} active={active} setActive={setActive} />
       <Page notes={notes} />
     </div>
   );

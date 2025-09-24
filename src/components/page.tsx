@@ -25,7 +25,7 @@ const Page = ({notes}: Notes) => {
         <div className="flex flex-col p-4 sm:mr-16 ">
           {/* Writing notes area */}
           <div className="flex flex-col gap-4">
-            {/* Notes title input */}
+            {/* Title input */}
             <input
               className="border border-neutral-500 p-2 text-lg focus:border-neutral-200 shadow"
               value={currTitle}
@@ -34,7 +34,7 @@ const Page = ({notes}: Notes) => {
                 setCurrTitle(e.target.value);
               }}
             />
-            {/* Notes content input */}
+            {/* Content input */}
             <textarea
               className="border border-neutral-500 min-h-20 max-h-100 overflow-x-hidden p-2 focus:border-neutral-200 shadow"
               value={currContent}
