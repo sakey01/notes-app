@@ -11,32 +11,33 @@ type Note = {
 type Notes = {
   notes: Note[];
   setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
-  active: number;
-  setActive: React.Dispatch<React.SetStateAction<number>>;
+  active: number | null;
+  setActive: React.Dispatch<React.SetStateAction<number | null>>;
 };
 
-const newDate = new Date();
-
-const Sidebar = ({ notes, setNotes, setActive }: Notes) => {
+const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
   return (
     <aside className="flex flex-col flex-1 bg-neutral-800 text-white h-screen max-w-max items-center gap-2 border-r-1 border-neutral-600 ">
       <div className="flex justify-between p-4 gap-32">
         <h1 className="font-semibold">Notes</h1>
 
-        {/* Add Notes */}
+        {/* Add notes button*/}
         <button
           onClick={() => {
-            setNotes((prev) => [
-              ...prev,
-              {
-                id: Date.now(),
-                title: "New Note",
-                content: "Lorum ipsom...",
-                date: newDate.toLocaleDateString(),
-              },
-            ]);
+            const id = Date.now();
+            const newNote = {
+              id: id,
+              title: "New Note",
+              content: "Lorem ipsum...",
+              date: new Date().toLocaleDateString(),
+            };
 
-            setActive(notes.length - 1);
+            setNotes((prev) => {
+              const updated = [...prev, newNote];
+              return updated;
+            });
+
+            setActive(id);
           }}
         >
           <IoCreateOutline size={20} />
@@ -52,6 +53,7 @@ const Sidebar = ({ notes, setNotes, setActive }: Notes) => {
             title={note.title}
             content={note.content}
             date={note.date}
+            active={active}
             onClick={() => {
               setActive(note.id);
             }}
