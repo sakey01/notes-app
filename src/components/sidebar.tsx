@@ -17,13 +17,15 @@ type Notes = {
 
 const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
   return (
-    <aside className="flex flex-col flex-1 bg-neutral-800 text-white h-screen max-w-max items-center gap-2 border-r-1 border-neutral-600 ">
-      <div className="flex justify-between p-4 gap-32">
-        <h1 className="font-semibold">Notes</h1>
-
+    <aside className="flex flex-col flex-1 bg-neutral-800 text-white h-screen sm:min-w-60 w-1/2 sm:w-full items-center gap-2 border-r-1 border-neutral-900">
+      {/* Bar header */}
+      <div className="flex justify-between px-2 sm:px-4 py-4 w-full">
+        <h1 className="font-semibold mr-10">Notes</h1>
         {/* Add notes button*/}
         <button
+          className="p-1 rounded duration-100 hover:bg-neutral-600"
           onClick={() => {
+            // Reference id with exact time
             const id = Date.now();
             const newNote = {
               id: id,
@@ -33,11 +35,12 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
             };
 
             setNotes((prev) => {
+              // update notes array by adding newNote
               const updated = [...prev, newNote];
+              // Updaete the active note in notes
+              setActive(updated.length ? updated[updated.length - 1].id : null);
               return updated;
             });
-
-            setActive(id);
           }}
         >
           <IoCreateOutline size={20} />
@@ -54,7 +57,9 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
             content={note.content}
             date={note.date}
             active={active}
+            notes={notes}
             setNotes={setNotes}
+            setActive={setActive}
             onClick={() => {
               setActive(note.id);
             }}
