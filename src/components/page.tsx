@@ -65,7 +65,6 @@ const Page = ({ notes, setNotes, active }: Notes) => {
               ref={inputRef}
               onChange={(e) => {
                 if (!currNote) return;
-                console.log(currNote.id, "note:", notes)
                 setNotes((prev) =>
                   prev.map((note) =>
                     note.id === currNote.id ? { ...note, content: e.target.value } : note
