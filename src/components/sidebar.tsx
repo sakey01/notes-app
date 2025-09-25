@@ -24,7 +24,9 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
       {/* Header */}
       <header className="flex justify-between items-center w-full border-b border-neutral-700  py-2 sm:py-4 px-2 sm:px-4">
         <h1 className="text-sm sm:text-lg font-semibold">Notes</h1>
+        {/* Add note btn */}
         <button
+        title="Add note"
           className="rounded p-1 text-base sm:text-xl hover:bg-neutral-700 duration-100"
           // Create note object
           onClick={() => {

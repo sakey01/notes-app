@@ -61,9 +61,11 @@ const Page = ({ notes, setNotes, active }: Notes) => {
             <textarea
               className="bg-transparent resize-none min-h-20 h-full text-sm sm:text-base sm:p-2"
               placeholder="Type your notes here..."
+              value={currNote?.content ?? ""}
               ref={inputRef}
               onChange={(e) => {
                 if (!currNote) return;
+                console.log(currNote.id, "note:", notes)
                 setNotes((prev) =>
                   prev.map((note) =>
                     note.id === currNote.id ? { ...note, content: e.target.value } : note
