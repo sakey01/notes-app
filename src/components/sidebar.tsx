@@ -17,27 +17,25 @@ type Notes = {
 
 const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
   return (
-    <aside className="flex flex-col flex-1 bg-neutral-800 text-white h-screen sm:min-w-60 w-1/2 sm:w-full items-center gap-2 border-r-1 border-neutral-900">
-      {/* Bar header */}
-      <div className="flex justify-between px-2 sm:px-4 py-4 w-full">
-        <h1 className="font-semibold mr-10">Notes</h1>
-        {/* Add notes button*/}
+    <aside className="flex flex-col items-center min-w-40 h-screen flex-1 sm:w-full sm:min-w-60 bg-neutral-800 text-white border-r-1 border-neutral-900">
+      {/* Header */}
+      <section className="flex justify-between items-center w-full border-b border-neutral-700  py-4 px-2 sm:px-4">
+        <h1 className="font-semibold">Notes</h1>
         <button
-          className="p-1 rounded duration-100 hover:bg-neutral-600"
+          className="rounded p-1 hover:bg-neutral-700 duration-100"
+          // Create note object
           onClick={() => {
-            // Reference id with exact time
             const id = Date.now();
             const newNote = {
-              id: id,
+              id,
               title: "Untitled",
               content: "",
               date: new Date().toLocaleDateString(),
             };
-
+            // Add note to array
             setNotes((prev) => {
-              // update notes array by adding newNote
               const updated = [...prev, newNote];
-              // Updaete the active note in notes
+              // Update active note to most recent
               setActive(updated.length ? updated[updated.length - 1].id : null);
               return updated;
             });
@@ -45,10 +43,9 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
         >
           <IoCreateOutline size={20} />
         </button>
-      </div>
-
-      {/* Notes list overview */}
-      <div className="flex flex-col w-full overflow-y-auto">
+      </section>
+      {/* Notes list */}
+      <section className="flex flex-col w-full overflow-y-auto">
         {notes.map((note) => (
           <Card
             key={note.id}
@@ -59,13 +56,12 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
             active={active}
             setNotes={setNotes}
             setActive={setActive}
-            onClick={() => {
-              setActive(note.id);
-            }}
+            onClick={() => setActive(note.id)}
           />
         ))}
-      </div>
+      </section>
     </aside>
   );
 };
+
 export default Sidebar;
