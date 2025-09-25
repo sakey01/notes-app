@@ -22,37 +22,40 @@ const Page = ({ notes, setNotes, active }: Notes) => {
   const handleComplete = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      inputRef.current?.focus()};
+      inputRef.current?.focus();
+    }
   };
 
   return (
-    <div className="w-full min-w-1/2 h-screen overflow-y-auto bg-neutral-900 text-white flex items-start justify-center">
+    <main className="w-full min-w-1/2 h-screen overflow-y-auto bg-neutral-900 text-white flex items-start justify-center">
       {notes.length < 1 ? (
         <div className="h-full flex items-center justify-center sm:text-xl text-neutral-400">
           Nothing yet!
         </div>
       ) : (
-        <div className="w-full h-full max-w-4xl flex flex-col gap-4 sm:p-4">
+        <article className="w-full h-full max-w-4xl flex flex-col gap-4 sm:p-4">
           {/* Write notes section */}
           <section className="flex flex-col h-1/2 gap-4 p-4 sm:bg-neutral-800 sm:p-2">
             {/* Title input */}
-            <input
-              className="bg-transparent border-b border-neutral-600 focus:border-neutral-400 break-words text-lg sm:text-2xl font-semibold sm:p-4"
-              value={currNote?.title ?? "Untitled"}
-              placeholder="Untitled Note"
-              onChange={(e) => {
-                if (!currNote) return;
-                const newTitle = e.target.value;
-                if (newTitle.length <= 80) {
-                  setNotes((prev) =>
-                    prev.map((note) =>
-                      note.id === currNote.id ? { ...note, title: newTitle } : note
-                    )
-                  );
-                }
-              }}
-              onKeyDown={handleComplete}
-            />
+            <header className="bg-transparent border-b border-neutral-600 focus:border-neutral-400 sm:p-4">
+              <input
+                className="break-words text-lg sm:text-2xl"
+                value={currNote?.title ?? "Untitled"}
+                placeholder="Untitled Note"
+                onChange={(e) => {
+                  if (!currNote) return;
+                  const newTitle = e.target.value;
+                  if (newTitle.length <= 80) {
+                    setNotes((prev) =>
+                      prev.map((note) =>
+                        note.id === currNote.id ? { ...note, title: newTitle } : note
+                      )
+                    );
+                  }
+                }}
+                onKeyDown={handleComplete}
+              />
+            </header>
 
             {/* Content input */}
             <textarea
@@ -73,13 +76,13 @@ const Page = ({ notes, setNotes, active }: Notes) => {
           {/* Markdown section */}
           <section className="flex flex-col gap-4 mt-2 p-2 border-t sm:border-none border-neutral-600 sm:bg-neutral-800">
             <h2 className="text-lg sm:text-2xl font-semibold text-neutral-300 sm:p-2">Markdown</h2>
-            <div className="text-sm sm:text-base sm:p-2">
+            <article className="text-sm sm:text-base sm:p-2 markdown">
               <ReactMarkdown>{currNote?.content}</ReactMarkdown>
-            </div>
+            </article>
           </section>
-        </div>
+        </article>
       )}
-    </div>
+    </main>
   );
 };
 
