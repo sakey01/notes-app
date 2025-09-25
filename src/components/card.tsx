@@ -31,7 +31,7 @@ const Card = ({ id, title, date, onClick, active, setNotes, setActive }: CardPro
   return (
     <article
       onClick={onClick}
-      className={`flex flex-col max-w-50 sm:max-w-full gap-2 sm:gap-4 p-2 sm:p-4 cursor-pointer hover:bg-neutral-700 hover:shadow active:bg-[#383737] ${
+      className={`flex flex-col  sm:max-w-full gap-2 sm:gap-4 p-2 sm:p-4 cursor-pointer hover:bg-neutral-700 hover:shadow active:bg-[#383737] ${
         active === id ? "bg-neutral-700" : ""
       }`}
     >
@@ -39,7 +39,7 @@ const Card = ({ id, title, date, onClick, active, setNotes, setActive }: CardPro
         {/* Title */}
         <h2 className="truncate break-words font-semibold text-sm sm:text-lg">{title || "Untitled"}</h2>
         <button
-          className="p-1 ml-1 text-base sm:text-xl text-neutral-400  rounded-full hover:bg-neutral-600 duration-100"
+          className="p-1 ml-1 text-base sm:text-xl text-neutral-400 rounded-full hover:bg-neutral-600 duration-100"
           onClick={handleDelete}
         >
           <MdDelete />

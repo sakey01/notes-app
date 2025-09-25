@@ -19,10 +19,10 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
   return (
     <aside
       aria-label="Notes sidebar"
-      className="flex flex-col items-center min-w-40 h-screen flex-1 sm:w-full sm:min-w-60 bg-neutral-800 text-white border-r-1 border-neutral-900"
+      className="flex flex-col items-center min-w-[40%] h-screen flex-1 sm:w-full sm:min-w-60 bg-neutral-800 text-white border-r border-neutral-900"
     >
       {/* Header */}
-      <header className="flex justify-between items-center w-full border-b border-neutral-700  py-2 sm:py-4 px-2 sm:px-4">
+      <header className="flex justify-between items-center w-full border-b border-neutral-900  py-2 sm:py-4 px-2 sm:px-4">
         <h1 className="text-sm sm:text-lg font-semibold">Notes</h1>
         {/* Add note btn */}
         <button

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
 type Note = {
@@ -18,6 +18,13 @@ const Page = ({ notes, setNotes, active }: Notes) => {
   const currNote = notes.find((n) => n.id === active);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = 80+ 2*inputRef.current.scrollHeight + "px";
+    }
+  }, [currNote]);
+
   // Moves to content section on enter
   const handleComplete = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -33,13 +40,13 @@ const Page = ({ notes, setNotes, active }: Notes) => {
           Nothing yet!
         </div>
       ) : (
-        <article className="w-full h-full max-w-4xl flex flex-col gap-4 sm:p-4">
+        <article className="w-full h-screen md:grid grid-cols-2 sm:gap-4 md:p-4">
           {/* Write notes section */}
-          <section className="flex flex-col h-1/2 gap-4 p-4 sm:bg-neutral-800 sm:p-2">
+          <section className="flex flex-col h-1/2 gap-4 p-4 bg-neutral-800 sm:p-2">
             {/* Title input */}
-            <header className="bg-transparent border-b border-neutral-600 focus:border-neutral-400 sm:p-4">
+            <header className="md:border-b border-neutral-600focus:border-neutral-400 sm:p-2">
               <input
-                className="break-words text-lg sm:text-2xl"
+                className="break-words text-lg sm:text-xl"
                 value={currNote?.title ?? "Untitled"}
                 placeholder="Untitled Note"
                 onChange={(e) => {
@@ -59,7 +66,7 @@ const Page = ({ notes, setNotes, active }: Notes) => {
 
             {/* Content input */}
             <textarea
-              className="bg-transparent resize-none min-h-20 h-full text-sm sm:text-base sm:p-2"
+              className="bg-transparent resize-none text-sm sm:text-base sm:p-2"
               placeholder="Type your notes here..."
               value={currNote?.content ?? ""}
               ref={inputRef}
@@ -75,10 +82,12 @@ const Page = ({ notes, setNotes, active }: Notes) => {
           </section>
 
           {/* Markdown section */}
-          <section className="flex flex-col gap-4 mt-2 p-2 border-t sm:border-none border-neutral-600 sm:bg-neutral-800">
-            <h2 className="text-lg sm:text-2xl font-semibold text-neutral-300 sm:p-2">Markdown</h2>
+          <section className="flex flex-col h-max gap-4 p-2 border-t sm:border-none border-neutral-900 md:bg-neutral-800">
+            <h2 className="sm:text-lg font-semibold text-neutral-300 overflow-hidden sm:p-2">
+              Markdown
+            </h2>
             <article className="text-sm sm:text-base sm:p-2 markdown">
-              <ReactMarkdown>{currNote?.content}</ReactMarkdown>
+              <ReactMarkdown>{currNote?.content ? currNote?.content : "..."}</ReactMarkdown>
             </article>
           </section>
         </article>
