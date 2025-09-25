@@ -1,3 +1,5 @@
+import ReactMarkdown from "react-markdown";
+
 type Note = {
   id: number;
   title: string;
@@ -47,7 +49,7 @@ const Page = ({ notes, setNotes, active }: Notes) => {
 
             {/* Content input */}
             <textarea
-              className="bg-transparent min-h-[200px] max-h-screen p-2 sm:p-4 outline-none"
+              className="bg-transparent min-h-75 max-h-150 p-2 sm:p-4 outline-none"
               value={currNote?.content ?? ""}
               placeholder="Type your notes here..."
               onChange={(e) => {
@@ -59,6 +61,14 @@ const Page = ({ notes, setNotes, active }: Notes) => {
                 );
               }}
             />
+          </div>
+          <div className="flex flex-col gap-4 sm:bg-neutral-800 mt-2 sm:p-6">
+            <h2 className="text-lg sm:text-2xl font-semibold text-neutral-200 p-1 sm:p-4">
+              Markdown
+            </h2>
+            <div className="p-1 sm:p-4 ">
+              <ReactMarkdown>{currNote?.content}</ReactMarkdown>
+            </div>
           </div>
         </div>
       )}
