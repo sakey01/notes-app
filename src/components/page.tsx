@@ -17,13 +17,13 @@ const Page = ({ notes, setNotes, active }: Notes) => {
   const currNote = notes.find((n) => n.id === active);
 
   return (
-    <div className="w-full min-w-1/2 min-h-screen bg-neutral-900 text-white flex items-start justify-center">
+    <div className="w-full min-w-1/2 h-screen overflow-y-auto bg-neutral-900 text-white flex items-start justify-center">
       {notes.length < 1 ? (
-        <div className="h-full flex items-center justify-center text-xl text-neutral-400">
+        <div className="h-full flex items-center justify-center sm:text-xl text-neutral-400">
           Nothing yet!
         </div>
       ) : (
-        <div className="w-full max-w-4xl flex flex-col gap-4 overflow-visible sm:p-6">
+        <div className="w-full max-w-4xl flex flex-col gap-4 sm:p-6">
           {/* Write notes section */}
           <section className="flex flex-col gap-4 mt-12 p-4 sm:bg-neutral-800 sm:p-6">
             {/* Title input */}
@@ -47,7 +47,7 @@ const Page = ({ notes, setNotes, active }: Notes) => {
 
             {/* Content input */}
             <textarea
-              className="bg-transparent h-50 text-sm sm:text-base sm:p-4"
+              className="bg-transparent resize-none min-h-50 text-sm sm:text-base sm:p-4"
               placeholder="Type your notes here..."
               onChange={(e) => {
                 if (!currNote) return;
@@ -62,9 +62,7 @@ const Page = ({ notes, setNotes, active }: Notes) => {
 
           {/* Markdown section */}
           <section className="flex flex-col gap-4 mt-2 p-4 sm:bg-neutral-800">
-            <h2 className="text-lg sm:text-2xl font-semibold text-neutral-200 sm:p-4">
-              Markdown
-            </h2>
+            <h2 className="text-lg sm:text-2xl font-semibold text-neutral-200 sm:p-4">Markdown</h2>
             <div className="text-sm sm:text-base sm:p-4">
               <ReactMarkdown>{currNote?.content}</ReactMarkdown>
             </div>

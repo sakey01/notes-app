@@ -1,6 +1,6 @@
 import Sidebar from "./components/sidebar";
 import Page from "./components/page";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Note = {
   id: number;
@@ -10,9 +10,15 @@ type Note = {
 };
 
 function App() {
-  // Notes object array with title, content and date
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [active, setActive] = useState<number | null>(null);
+  const [notes, setNotes] = useState<Note[]>(() => {
+    const stored = localStorage.getItem("notes");
+    return stored ? JSON.parse(stored) : [];
+  }); // Notes array
+  const [active, setActive] = useState<number | null>(null); // Active Note
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
 
   return (
     <div className="flex max-w-screen">

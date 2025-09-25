@@ -31,14 +31,14 @@ const Card = ({ id, title, date, onClick, active, setNotes, setActive }: CardPro
   return (
     <div
       onClick={onClick}
-      className={`flex flex-col max-w-50 sm:max-w-full gap-4 p-2 sm:p-4 cursor-pointer hover:bg-neutral-700 hover:shadow active:bg-[#383737] ${
+      className={`flex flex-col max-w-50 sm:max-w-full gap-2 sm:gap-4 p-2 sm:p-4 cursor-pointer hover:bg-neutral-700 hover:shadow active:bg-[#383737] ${
         active === id ? "bg-neutral-700" : ""
       }`}
     >
       <div className="flex justify-between items-start">
         <h1 className="truncate break-words font-semibold sm:text-lg">{title || "Untitled"}</h1>
         <button
-          className="p-1 text-sm text-neutral-400 rounded-full hover:bg-neutral-600 duration-100"
+          className="p-1 ml-1 text-sm text-neutral-400 rounded-full hover:bg-neutral-600 duration-100"
           onClick={handleDelete}
         >
           <MdDelete size={20} />
