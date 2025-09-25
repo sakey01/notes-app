@@ -36,16 +36,17 @@ const Card = ({ id, title, date, onClick, active, setNotes, setActive }: CardPro
       }`}
     >
       <div className="flex justify-between items-start">
-        <h1 className="truncate break-words font-semibold sm:text-lg">{title || "Untitled"}</h1>
+        {/* Title */}
+        <h1 className="truncate break-words font-semibold text-sm sm:text-lg">{title || "Untitled"}</h1>
         <button
-          className="p-1 ml-1 text-sm text-neutral-400 rounded-full hover:bg-neutral-600 duration-100"
+          className="p-1 ml-1 text-base sm:text-xl text-neutral-400  rounded-full hover:bg-neutral-600 duration-100"
           onClick={handleDelete}
         >
-          <MdDelete size={20} />
+          <MdDelete />
         </button>
       </div>
       {/* Last updated  */}
-      <div className="flex justify-between items-end gap-4 text-[12px] sm:text-sm text-neutral-400">
+      <div className="flex justify-between items-end gap-4 text-[10px] sm:text-sm text-neutral-400">
         <span>Last Modified:</span>
         <time>{date}</time>
       </div>

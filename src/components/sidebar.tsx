@@ -20,9 +20,9 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
     <aside className="flex flex-col items-center min-w-40 h-screen flex-1 sm:w-full sm:min-w-60 bg-neutral-800 text-white border-r-1 border-neutral-900">
       {/* Header */}
       <section className="flex justify-between items-center w-full border-b border-neutral-700  py-2 sm:py-4 px-2 sm:px-4">
-        <h1 className="font-semibold">Notes</h1>
+        <h1 className="text-sm sm:text-lg font-semibold">Notes</h1>
         <button
-          className="rounded p-1 hover:bg-neutral-700 duration-100"
+          className="rounded p-1 text-base sm:text-xl hover:bg-neutral-700 duration-100"
           // Create note object
           onClick={() => {
             const id = Date.now();
@@ -41,7 +41,7 @@ const Sidebar = ({ notes, setNotes, active, setActive }: Notes) => {
             });
           }}
         >
-          <IoCreateOutline size={20} />
+          <IoCreateOutline/>
         </button>
       </section>
       {/* Notes list */}

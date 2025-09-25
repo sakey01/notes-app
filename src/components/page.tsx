@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
 type Note = {
@@ -15,6 +16,14 @@ type Notes = {
 
 const Page = ({ notes, setNotes, active }: Notes) => {
   const currNote = notes.find((n) => n.id === active);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
+
+  // Moves to content section on enter
+  const handleComplete = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      inputRef.current?.focus()};
+  };
 
   return (
     <div className="w-full min-w-1/2 h-screen overflow-y-auto bg-neutral-900 text-white flex items-start justify-center">
@@ -23,9 +32,9 @@ const Page = ({ notes, setNotes, active }: Notes) => {
           Nothing yet!
         </div>
       ) : (
-        <div className="w-full max-w-4xl flex flex-col gap-4 sm:p-6">
+        <div className="w-full h-full max-w-4xl flex flex-col gap-4 sm:p-4">
           {/* Write notes section */}
-          <section className="flex flex-col gap-4 mt-12 p-4 sm:bg-neutral-800 sm:p-6">
+          <section className="flex flex-col h-1/2 gap-4 p-4 sm:bg-neutral-800 sm:p-2">
             {/* Title input */}
             <input
               className="bg-transparent border-b border-neutral-600 focus:border-neutral-400 break-words text-lg sm:text-2xl font-semibold sm:p-4"
@@ -42,13 +51,14 @@ const Page = ({ notes, setNotes, active }: Notes) => {
                   );
                 }
               }}
-              autoFocus
+              onKeyDown={handleComplete}
             />
 
             {/* Content input */}
             <textarea
-              className="bg-transparent resize-none min-h-50 text-sm sm:text-base sm:p-4"
+              className="bg-transparent resize-none min-h-20 h-full text-sm sm:text-base sm:p-2"
               placeholder="Type your notes here..."
+              ref={inputRef}
               onChange={(e) => {
                 if (!currNote) return;
                 setNotes((prev) =>
@@ -61,9 +71,9 @@ const Page = ({ notes, setNotes, active }: Notes) => {
           </section>
 
           {/* Markdown section */}
-          <section className="flex flex-col gap-4 mt-2 p-4 sm:bg-neutral-800">
-            <h2 className="text-lg sm:text-2xl font-semibold text-neutral-200 sm:p-4">Markdown</h2>
-            <div className="text-sm sm:text-base sm:p-4">
+          <section className="flex flex-col gap-4 mt-2 p-2 border-t sm:border-none border-neutral-600 sm:bg-neutral-800">
+            <h2 className="text-lg sm:text-2xl font-semibold text-neutral-300 sm:p-2">Markdown</h2>
+            <div className="text-sm sm:text-base sm:p-2">
               <ReactMarkdown>{currNote?.content}</ReactMarkdown>
             </div>
           </section>
