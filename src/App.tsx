@@ -10,16 +10,25 @@ type Note = {
 };
 
 function App() {
+  // Notes array
   const [notes, setNotes] = useState<Note[]>(() => {
     const stored = localStorage.getItem("notes");
     return stored ? JSON.parse(stored) : [];
-  }); // Notes array
-  const [active, setActive] = useState<number | null>(null); // Active Note
+  }); 
+  // Active Note
+  const [active, setActive] = useState<number | null>(() => {
+    const stored = localStorage.getItem("active");
+    return stored ? JSON.parse(stored) : null;
+  }); 
 
   // Store notes locally whenever it's changed
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
+
+  useEffect(() => {
+    localStorage.setItem("active", JSON.stringify(active))
+  },[active])
 
   return (
     <div className="flex max-w-screen">
