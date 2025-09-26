@@ -11,3 +11,5 @@ A CRUD, notes application that lets you add, edit and delete notes. Made with pu
 `React` `TypeScript` `Tailwindcss` `react-icons` `react-markdown`
 
 ## How it looks 👀
+
+https://github.com/user-attachments/assets/6ea98b6d-bb31-434f-9e64-bd71f52e8db3
